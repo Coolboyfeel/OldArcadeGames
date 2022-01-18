@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &2990047737949866670
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7780469105191894422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f254099b9d354c49b16257f3f319612, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSprites:
+  - {fileID: 21300000, guid: 7166657cba0d8844095ea6c9336b502f, type: 3}
+  - {fileID: 21300000, guid: bfce8378369d25849906ac140022e4cd, type: 3}
+  animationTime: 1
+  ps: {fileID: 3682379137061911475, guid: 67a457e01a417dc46afa8c84b64c021d, type: 3}
+  destroyDelay: 0.2
+--- !u!1001 &5958536980374770173
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 560565484849225425, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3443861456928842959, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4127899518431226987, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+      propertyPath: m_Name
+      value: Invader_02 Variant Variant
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -7642787634149553900, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+--- !u!1 &7780469105191894422 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4127899518431226987, guid: bbc7ce84dc94ea14190239e465b2a8d3, type: 3}
+  m_PrefabInstance: {fileID: 5958536980374770173}
+  m_PrefabAsset: {fileID: 0}

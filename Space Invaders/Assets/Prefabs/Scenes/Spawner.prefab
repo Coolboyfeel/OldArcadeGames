@@ -1,0 +1,113 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6948977877430717120
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6948977877430717126}
+  - component: {fileID: 6948977877430717121}
+  - component: {fileID: 3144759655944156692}
+  m_Layer: 9
+  m_Name: Spawner
+  m_TagString: Spawner
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6948977877430717126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948977877430717120}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6948977877430717121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948977877430717120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42beed79038fa514797919cc64bec47d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetMover: 0
+  prefabs:
+  - {fileID: 8688007112746771050, guid: a48488d3a3b622f4c8ded5f0525057b3, type: 3}
+  - {fileID: 8688007112746771050, guid: a48488d3a3b622f4c8ded5f0525057b3, type: 3}
+  - {fileID: 5119268019188359252, guid: 46c315ad45200954490fcc0b984833d1, type: 3}
+  - {fileID: 5119268019188359252, guid: 46c315ad45200954490fcc0b984833d1, type: 3}
+  - {fileID: 6086039734481096314, guid: 646e6b859b7d3ee4dad10d4abc7439d3, type: 3}
+  misslePrefab: {fileID: 3569824136998586502, guid: 3c4fc5c9596e7eb498623f52e38e715c, type: 3}
+  gameManager: {fileID: 0}
+  rows: 5
+  columns: 10
+  speed:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.5
+      inSlope: 0.17277603
+      outSlope: 0.17277603
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.19978692
+    - serializedVersion: 3
+      time: 1
+      value: 8
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spacing: 2
+  invadersKilled: 0
+  invadersTotal: 0
+  missleAttackRate: 2
+--- !u!114 &3144759655944156692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6948977877430717120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 574b1196e9660c347a39c50fec600b61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offsetMover: 0
+  prefabs: []
+  misslePrefab: {fileID: 0}
+  gameManager: {fileID: 0}
+  rows: 5
+  columns: 11
+  speed:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spacing: 0
+  invadersKilled: 0
+  invadersTotal: 0
+  missleAttackRate: 0

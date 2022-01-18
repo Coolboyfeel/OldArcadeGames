@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Computer
+  - RightWall
+  - LeftWall
+  - Ball
+  - Bullet
+  - Asteroid
+  - Asteroid2
+  - GameManager
+  - Player2
+  - Explosion1
+  - Explosion2
+  - Explosion3
+  - Invader
+  - Boundary
+  - Bunker
+  - Spawner
+  - Laser
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Player(Asteroids + Pong)
+  - Water
+  - UI
+  - Bullet
+  - Asteroid
+  - Asteroid 2
+  - Boundary
+  - Ignore Collisions
+  - AsteroidFlying
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
