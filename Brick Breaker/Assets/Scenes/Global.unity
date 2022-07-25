@@ -155,6 +155,8 @@ MonoBehaviour:
   level: 1
   score: 0
   lives: 3
+  arrows: 0
+  activeKey: 6100000064000000
 --- !u!4 &1391134359
 Transform:
   m_ObjectHideFlags: 0
