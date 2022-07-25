@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        NewGame();
+        SceneManager.LoadScene("Main Menu");
     }
 
     
@@ -46,12 +46,13 @@ public class GameManager : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space)) 
         {
-            if (speedUp == false) 
+            if (Time.timeScale == 1) 
             {
-                speedUp = true;
                 Time.timeScale = 2;
-            } else if (speedUp == true) {
-                speedUp = false;
+            } else if (Time.timeScale == 2) {
+                Time.timeScale = 5;
+            } else if (Time.timeScale >= 5) 
+            {
                 Time.timeScale = 1;
             }
         }

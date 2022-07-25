@@ -6,7 +6,8 @@ public class Ball : MonoBehaviour
 {
     public float multiplier;
     public Rigidbody2D rb {get; private set;}
-    public float speed = 500f;
+    public float speed = 10f;
+    private float originalSpeed = 10f;
     private void Awake() 
     {
         rb = GetComponent<Rigidbody2D>();
@@ -14,13 +15,20 @@ public class Ball : MonoBehaviour
 
     private void Start() {
         Invoke(("SetRandomTrajectory"), 1f);
+        originalSpeed = speed;
     }
 
     public void ResetBall() 
     {
+        speed = originalSpeed;
         transform.position = new Vector2(0, -3);
         rb.velocity = Vector2.zero;
         Invoke(("SetRandomTrajectory"), 1f); 
+    }
+    
+    private void FixedUpdate()
+    {
+        rb.velocity = rb.velocity.normalized * speed;
     }
 
     private void SetRandomTrajectory() 
@@ -33,9 +41,19 @@ public class Ball : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if(gameObject.tag == "Paddle") 
+        if (other.gameObject.tag == "Paddle") 
         {
-            rb.velocity = multiplie r * rb.velocity.magnitude;
+            speed = speed * multiplier;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.gameObject.tag == "BallCheck") 
+        {
+            if(Time.timeScale > 1) 
+            {
+                Time.timeScale = 1;
+            }
         }
     }
 }
