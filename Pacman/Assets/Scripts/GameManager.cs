@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 	public Ghost[] ghosts;
+	public Image[] livesIcon;
 
 	public Pacman pacman;
+	
 
 	public Transform pellets;
 
@@ -26,7 +29,7 @@ public class GameManager : MonoBehaviour
 			NewGame();
 		}
 	}
-
+	
 	void NewGame()
 	{
 		SetScore(0);
@@ -49,10 +52,10 @@ public class GameManager : MonoBehaviour
 		ResetMultiplier();
 		for (int i = 0; i < this.ghosts.Length; i++)
 		{
-			this.ghosts[i].gameObject.SetActive(true);
+			this.ghosts[i].ResetState();
 		}
 
-		this.pacman.gameObject.SetActive(true);
+		this.pacman.ResetState();
 	}
 
 	void GameOver()
@@ -89,6 +92,24 @@ public class GameManager : MonoBehaviour
 
 		SetLives(this.lives - 1);
 
+		for (int i = 0; i < this.livesIcon.Length; i++)
+		{
+			int livesNum = i + 1;
+
+			if (lives == livesNum) 
+			{
+				this.livesIcon[i].enabled = true;
+			}
+			else if (lives > livesNum) 
+			{
+				this.livesIcon[i].enabled = true;
+			}
+			else 
+			{
+				this.livesIcon[i].enabled = false;
+			}
+		}
+		
 		if(this.lives > 0)
 		{
 			Invoke("ResetState", 3.0f);
@@ -115,6 +136,10 @@ public class GameManager : MonoBehaviour
 
 	public void PowerPelletEaten(PowerPellet pellet)
 	{
+		for(int i = 0; i < this.ghosts.Length; i++) {
+			this.ghosts[i].frightened.Enable(pellet.duration);
+		}
+
 		PelletEaten(pellet);
 		CancelInvoke();
 		Invoke("ResetMultiplier", pellet.duration);	

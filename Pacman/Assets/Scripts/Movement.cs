@@ -9,12 +9,12 @@ public class Movement : MonoBehaviour
 	public float speed = 8f;
 	public float multiplier = 1f;
 
-	public Vector2 initialDir;
+	public Vector2 initialDirection;
 	public LayerMask obstacleLayer;
 	public Rigidbody2D rb { get; private set; }
 
-	public Vector2 dir { get; private set; }
-	public Vector2 nextDir { get; private set; }
+	public Vector2 direction { get; private set; }
+	public Vector2 nextDirection { get; private set; }
 	public Vector3 startingPos;
 
 	void Awake()
@@ -31,8 +31,8 @@ public class Movement : MonoBehaviour
 	public void ResetState()
 	{
 		multiplier = 1.0f;
-		dir = initialDir;
-		nextDir = Vector2.zero;
+		direction = initialDirection;
+		nextDirection = Vector2.zero;
 		transform.position = startingPos;
 		rb.isKinematic = false;
 		enabled = true;
@@ -40,16 +40,16 @@ public class Movement : MonoBehaviour
 
 	void Update()
 	{
-		if (nextDir != Vector2.zero)
+		if (nextDirection != Vector2.zero)
 		{
-			SetDirection(nextDir);
+			SetDirection(nextDirection);
 		}
 	}
 
 	void FixedUpdate()
 	{
 		Vector2 position = rb.position;
-		Vector2 translation = dir * speed * multiplier * Time.fixedDeltaTime;
+		Vector2 translation = direction * speed * multiplier * Time.fixedDeltaTime;
 		rb.MovePosition(position + translation);
 	}
 
@@ -57,12 +57,12 @@ public class Movement : MonoBehaviour
 	{
 		if(forced || !Occupied(direction))
 		{
-			dir = direction;
-			nextDir = Vector2.zero;
+			this.direction = direction;
+			nextDirection = Vector2.zero;
 		}
 		else
 		{
-			nextDir = direction;
+			nextDirection = direction;
 		}
 	}
 

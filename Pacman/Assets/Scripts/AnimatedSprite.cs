@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class AnimatedSprite : MonoBehaviour
 {
-	public SpriteRenderer sr { get; private set; }
-
+	public SpriteRenderer sr;
 	public Sprite[] sprites;
 	public float animationTime = 0.25f;
 
@@ -16,7 +15,7 @@ public class AnimatedSprite : MonoBehaviour
 
 	void Awake()
 	{
-		this.sr = GetComponent<SpriteRenderer>();
+		this.sr = this.gameObject.GetComponent<SpriteRenderer>();
 	}
 
 	void Start()
@@ -24,6 +23,7 @@ public class AnimatedSprite : MonoBehaviour
 		InvokeRepeating("Advance", animationTime, animationTime);
 	}
 
+	
 	void Advance()
 	{
 		if(!sr.enabled)
@@ -44,7 +44,7 @@ public class AnimatedSprite : MonoBehaviour
 		}
 	}
 
-	void Restart()
+	public void Restart()
 	{
 		animationFrame = -1;
 		Advance();
