@@ -7,7 +7,9 @@ public class Paddle : MonoBehaviour
 
     public GameManager gameManager;
     public Rigidbody2D rb {get; private set;} 
+    public BoxCollider2D bc {get; private set;}
     public float speed = 30f;
+    public bool occupied = false;
     public Vector2 direction {get; private set; }
     public float maxBounceAngle = 75f;
 
@@ -15,23 +17,38 @@ public class Paddle : MonoBehaviour
     {
         this.rb = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
+        bc = GetComponent<BoxCollider2D>();
     }
 
     public void ResetPaddle() 
     {
         transform.position = new Vector2(0f, transform.position.y);
+        transform.localScale = new Vector3(1f, 1f, 1f);
         rb.velocity = Vector2.zero;
     }
 
     private void Update() {
-        if (Input.GetKey(gameManager.activeKey[0]))
+        if(!gameManager.actives[3]) 
         {
-            this.direction = Vector2.left;
-        } else if (Input.GetKey(gameManager.activeKey[1])) {
-            this.direction = Vector2.right;
-        } else {
-            this.direction = Vector2.zero;
+            if (Input.GetKey(gameManager.activeKey[0]))
+            {
+                this.direction = Vector2.left;
+            } else if (Input.GetKey(gameManager.activeKey[1])) {
+                this.direction = Vector2.right;
+            } else {
+                this.direction = Vector2.zero;
+            }
+        } else if(gameManager.actives[3]) {
+            if (Input.GetKey(gameManager.activeKey[1]))
+            {
+                this.direction = Vector2.left;
+            } else if (Input.GetKey(gameManager.activeKey[0])) {
+                this.direction = Vector2.right;
+            } else {
+                this.direction = Vector2.zero;
+            }
         }
+        
     }
 
     private void FixedUpdate() {
@@ -59,4 +76,42 @@ public class Paddle : MonoBehaviour
             ball.rb.velocity = rotation * Vector2.up * ball.rb.velocity.magnitude;
         }
     }
+
+    IEnumerator Long(int duration) 
+    {
+        if(!gameManager.actives[0]) 
+        {
+            gameManager.actives[0] = true;
+            this.transform.localScale = new Vector3(transform.localScale.x * 1.5f, 1f, 1f);          
+        }
+
+        yield return new WaitForSeconds(duration); 
+        this.transform.localScale = new Vector3(1f, 1f, 1f);
+        gameManager.actives[0] = false;
+    }
+
+    IEnumerator Inverse(int duration) 
+    {
+        if(!gameManager.actives[3]) 
+        {
+            gameManager.actives[3] = true;       
+        }
+        yield return new WaitForSeconds(duration);
+        gameManager.actives[3] = false;
+    }
+
+    IEnumerator Short(int duration) 
+    {
+        if(!gameManager.actives[5]) 
+        {
+            gameManager.actives[5] = true;
+            this.transform.localScale = new Vector3(transform.localScale.x / 1.5f, 1f, 1f);          
+        }
+
+        yield return new WaitForSeconds(duration); 
+        this.transform.localScale = new Vector3(1f, 1f, 1f);
+        gameManager.actives[5] = false;
+    }
+
+    
 }

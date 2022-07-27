@@ -7,17 +7,18 @@ public class Brick : MonoBehaviour
     public int health { get; private set;}
     public SpriteRenderer sr {get; private set;}
     public Sprite[] states;
-    public int basePoints {get; private set;} = 100;
-    public int points  {get; private set;}
+    public Texture2D[] statesTextures;
+    public int points {get; private set;} = 100;
     public bool unbreakable;
-    public ParticleSystem broken {get; private set;}
-
+    public ParticleSystem broken;
+    public int powerUpChance;
+    public int randomNum;
+    public GameObject powerUp;
     public GameManager gameManager;
 
     private void Awake() {
         sr = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManager>();
-        broken = GetComponentInChildren<ParticleSystem>();
     }
     
     private void Start() {
@@ -25,8 +26,6 @@ public class Brick : MonoBehaviour
         {
             health = states.Length;
             sr.sprite = states[health - 1];
-            float originalHealth = health;
-            points = basePoints * health;
         }
     }
 
@@ -40,17 +39,30 @@ public class Brick : MonoBehaviour
 
         if(health <= 0) {
             StartCoroutine(Break());
-            gameManager.Hit(this);
+            
+            
         } else {
-            sr.sprite = states[health - 1];   
+            sr.sprite = states[health - 1];
+            
         }
+        gameManager.Hit(this);
     }
 
     IEnumerator Break() 
     {
+        
         broken.gameObject.transform.position = this.transform.position;
         broken.Play();
+        
+        randomNum = Random.Range(1, powerUpChance + 1);
+        if(randomNum == 1) 
+        {
+            Instantiate(powerUp, this.transform.position, Quaternion.identity);
+        }
+        
         sr.sprite = null;
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+          
         yield return new WaitForSeconds(0.5f);
         this.gameObject.SetActive(false);
     }

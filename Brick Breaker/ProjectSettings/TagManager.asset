@@ -7,11 +7,15 @@ TagManager:
   - Ball
   - Paddle
   - BallCheck
+  - SpeedCheck
+  - Brick
+  - PowerUp
+  - MissZone
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ball
   - Water
   - UI
   - 

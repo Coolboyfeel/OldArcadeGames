@@ -19,4 +19,9 @@ public class MenuManager : MonoBehaviour
     {
         gameManager.NewGame();
     }
+
+    public void MainMenu() 
+    {
+        gameManager.BackToMenu();
+    }
 }

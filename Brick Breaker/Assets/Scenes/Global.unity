@@ -153,9 +153,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  totalLevels: 0
   score: 0
   lives: 3
+  timers:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  actives: 000000000000
+  ball: []
+  bricks: []
   arrows: 0
+  speedUp: 0
   activeKey: 6100000064000000
 --- !u!4 &1391134359
 Transform:
