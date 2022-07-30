@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
             
             scoreText.enabled = true; scoreText.text = score.ToString();
             livesText.enabled = true; livesText.text = lives.ToString();
-            if(Input.GetKeyDown(KeyCode.E) && ball[0].canChangeSpeed) 
+            if(Input.GetKeyDown(KeyCode.Space) && ball[0].canChangeSpeed) 
             {
                 if (Time.timeScale == 1) 
                 {
@@ -162,9 +162,9 @@ public class GameManager : MonoBehaviour
         }      
     }
 
-    public void Hit(Brick brick) 
+    public void Hit(Brick brick, int points) 
     {
-        score += brick.points;
+        score += points;
 
         StartCoroutine(CheckIfCleared());
     }

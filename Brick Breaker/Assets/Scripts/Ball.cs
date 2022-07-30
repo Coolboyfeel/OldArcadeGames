@@ -16,6 +16,7 @@ public class Ball : MonoBehaviour
     public float speed = 10f;
     public GameManager gameManager  {get; private set;}
     public GameObject multiBall;
+    private TrailRenderer tr;
     private float startSpeed = 10f;
     private void Awake() 
     {
@@ -60,7 +61,7 @@ public class Ball : MonoBehaviour
         }
         if(gameManager.actives[4]) 
         {
-            if(Input.GetKeyDown(KeyCode.Space)) 
+            if(Input.GetKeyDown(KeyCode.E)) 
             {  
                 Vector2 force = Vector2.zero;
                 force.x = Random.Range(-1f, 1f);
@@ -120,6 +121,11 @@ public class Ball : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
+        if(gameManager.actives[1] || gameManager.actives[2]) 
+        {
+            return;
+        }
+        
         if(other.gameObject.tag == "BallCheck") 
         {
             if(Time.timeScale > 1) 

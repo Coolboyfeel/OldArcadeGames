@@ -137,10 +137,13 @@ MonoBehaviour:
   powerUps:
   - Life
   - Long
+  - 'Multi '
   - Slow
   - Fast
-  - Catch
   - Short
+  - Inverse
+  - Catch
+  - Lazer
   durations:
   - 10
   - 5
@@ -151,4 +154,5 @@ MonoBehaviour:
   multiBallCount: 3
   randomNum: 0
   points: 50
+  lazerAmmo: 5
   fallSpeed: 5

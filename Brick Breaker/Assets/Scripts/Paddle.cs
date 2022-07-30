@@ -8,20 +8,36 @@ public class Paddle : MonoBehaviour
     public GameManager gameManager;
     public Rigidbody2D rb {get; private set;} 
     public BoxCollider2D bc {get; private set;}
-    public float speed = 30f;
-    public bool occupied = false;
+    public LineRenderer lr {get; private set;}
     public Vector2 direction {get; private set; }
+    
     public float maxBounceAngle = 75f;
+    public bool occupied = false;
+
+    [Header("Lazer/RayCast")]
+    public LayerMask layer;
+    public float lazerDuration;
+    private Vector2 lazerPos;
+    public float lineDur;
+    public float speed = 30f;
+    public bool shooting = false;
+    public int lazerAmmo;
+    public float lazerOffset;
 
     private void Awake() 
     {
+        layer = ~layer;
         this.rb = GetComponent<Rigidbody2D>();
         gameManager = FindObjectOfType<GameManager>();
         bc = GetComponent<BoxCollider2D>();
+        lr = GetComponent<LineRenderer>();
     }
 
     public void ResetPaddle() 
     {
+        shooting = false;
+        lazerAmmo = 0;
+        lr.positionCount = 0;
         transform.position = new Vector2(0f, transform.position.y);
         transform.localScale = new Vector3(1f, 1f, 1f);
         rb.velocity = Vector2.zero;
@@ -49,6 +65,44 @@ public class Paddle : MonoBehaviour
             }
         }
         
+        
+        
+        //RaycastHit2D hit =  Physics2D.Raycast(new Vector3(transform.position.x, transform.position.y + 1f, 0f), transform.up, maxRayDistance, 2);
+        
+
+        if(Input.GetKeyDown(KeyCode.Q) && lazerAmmo > 0 && !shooting) 
+        {
+            lazerPos = transform.position;
+            lazerAmmo--;
+            StartCoroutine(ShootBool());    
+        }
+
+        if(shooting) 
+        {
+            var ray = new Ray2D(new Vector2(lazerPos.x, lazerPos.y + 1.5f), Vector2.up);
+            RaycastHit2D hit = Physics2D.Raycast(origin: ray.origin, direction: ray.direction, distance: Mathf.Infinity, layerMask: layer);
+            if(hit && hit.collider.gameObject.tag == "Brick") 
+            {
+                Debug.DrawRay(lazerPos, transform.TransformDirection(Vector3.up) * hit.distance, Color.red);
+                hit.collider.gameObject.GetComponent<Brick>().Hit("Lazer");
+                lr.SetPosition(0, new Vector3(lazerPos.x, lazerPos.y + lazerOffset, 0f));
+                lr.SetPosition(1, hit.point);
+            } else {
+                Debug.DrawRay(lazerPos, transform.TransformDirection(Vector3.up) * Mathf.Infinity, Color.green);
+                lr.SetPosition(0, new Vector3(lazerPos.x, lazerPos.y + lazerOffset, 0f));
+                lr.SetPosition(1, Vector3.up * 200f);
+            }
+        }
+        
+    }
+
+    IEnumerator ShootBool() 
+    { 
+        lr.positionCount = 2;
+        shooting = true;
+        yield return new WaitForSeconds(lazerDuration);
+        lr.positionCount = 0;
+        shooting = false; 
     }
 
     private void FixedUpdate() {
@@ -111,6 +165,11 @@ public class Paddle : MonoBehaviour
         yield return new WaitForSeconds(duration); 
         this.transform.localScale = new Vector3(1f, 1f, 1f);
         gameManager.actives[5] = false;
+    }
+
+    public void Lazer(int ammo) 
+    {
+        this.lazerAmmo += ammo;      
     }
 
     

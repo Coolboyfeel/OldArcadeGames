@@ -29,12 +29,20 @@ public class Brick : MonoBehaviour
         }
     }
 
-    private void Hit() 
+    public void Hit(string obj) 
     {
-        if (unbreakable) 
+        if (unbreakable && obj != "Lazer") 
         {
             return;
         }
+
+        int currentPoints = points;
+        if(obj == "Lazer") 
+        {
+            currentPoints = 50;
+        }
+        
+        
         health--;
 
         if(health <= 0) {
@@ -45,12 +53,11 @@ public class Brick : MonoBehaviour
             sr.sprite = states[health - 1];
             
         }
-        gameManager.Hit(this);
+        gameManager.Hit(this, currentPoints);
     }
 
     IEnumerator Break() 
     {
-        
         broken.gameObject.transform.position = this.transform.position;
         broken.Play();
         
@@ -71,7 +78,7 @@ public class Brick : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D other) {
         if(other.gameObject.tag == "Ball") 
         {
-            Hit();
+            Hit("Ball");
         }
     }
 }

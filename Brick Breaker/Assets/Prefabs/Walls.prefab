@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 597214085525921514}
   - component: {fileID: 597214085525921513}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: CanChangeSpeed
   m_TagString: SpeedCheck
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 597214085542899261}
   - component: {fileID: 597214085542899260}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 597214085752192025}
   - component: {fileID: 597214085752192024}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: BallCheck
   m_TagString: BallCheck
   m_Icon: {fileID: 0}

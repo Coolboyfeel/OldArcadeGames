@@ -9,6 +9,7 @@ public class PowerUp : MonoBehaviour
     public int multiBallCount;
     public int randomNum;
     public int points = 50;
+    public int lazerAmmo;
     public float fallSpeed;
     public GameManager gameManager {get; private set;}
     public Paddle paddle {get; private set;}
@@ -113,6 +114,8 @@ public class PowerUp : MonoBehaviour
             gameManager.timers[5] = durations[5];
             paddle.StopCoroutine("Short");
             paddle.StartCoroutine("Short", durations[5]);
+        } else if (powerUps[randomNum] == "Lazer") {
+            paddle.Lazer(lazerAmmo);
         }
         Destroy(this.gameObject, 0.1f);
         
