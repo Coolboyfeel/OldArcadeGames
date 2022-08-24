@@ -11,6 +11,7 @@ TagManager:
   - Brick
   - PowerUp
   - MissZone
+  - Wall
   layers:
   - Default
   - TransparentFX

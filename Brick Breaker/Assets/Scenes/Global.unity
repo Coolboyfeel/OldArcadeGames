@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1391134359}
   - component: {fileID: 1391134358}
+  - component: {fileID: 1391134360}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -153,6 +154,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   level: 1
+  startLevel: 2
   totalLevels: 0
   score: 0
   lives: 3
@@ -163,12 +165,27 @@ MonoBehaviour:
   - 0
   - 0
   - 0
-  actives: 000000000000
+  - 0
+  actives: 00000000000000
   ball: []
   bricks: []
   arrows: 0
   speedUp: 0
   activeKey: 6100000064000000
+  longTimer: 0
+  shortTimer: 0
+  slowTimer: 0
+  fastTimer: 0
+  inverseTimer: 0
+  catchTimer: 0
+  rewindTimer: 0
+  longActive: 0
+  shortActive: 0
+  slowActive: 0
+  fastActive: 0
+  inverseActive: 0
+  catchActive: 0
+  rewindActive: 0
 --- !u!4 &1391134359
 Transform:
   m_ObjectHideFlags: 0
@@ -183,3 +200,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1391134360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1391134357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9468c5f457ace64f8d4df6d642b107f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LoadEvent: 1
+  UnloadEvent: 0
+  Banks:
+  - Build/Desktop/Master
+  CollisionTag: 
+  PreloadSamples: 0

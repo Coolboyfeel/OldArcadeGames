@@ -135,15 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUps:
-  - Life
-  - Long
-  - 'Multi '
-  - Slow
-  - Fast
-  - Short
-  - Inverse
-  - Catch
-  - Lazer
+  - Rewind
+  - Multi
   durations:
   - 10
   - 5
@@ -156,3 +149,31 @@ MonoBehaviour:
   points: 50
   lazerAmmo: 5
   fallSpeed: 5
+  longDuration: 10
+  shortDuration: 10
+  slowDuration: 5
+  fastDuration: 5
+  inverseDuration: 5
+  catchDuration: 10
+  rewindDuration: 5
+  lifeEvent:
+    Guid:
+      Data1: -650635642
+      Data2: 1153468188
+      Data3: 1998571914
+      Data4: 1503390710
+    Path: event:/Powerup_Life
+  longEvent:
+    Guid:
+      Data1: 1558693850
+      Data2: 1339238534
+      Data3: 604947901
+      Data4: -1609644816
+    Path: event:/Powerup_Long
+  shortEvent:
+    Guid:
+      Data1: -292440370
+      Data2: 1239673396
+      Data3: -204399232
+      Data4: -1727508693
+    Path: event:/Powerup_Short

@@ -14,31 +14,80 @@ public class PowerUp : MonoBehaviour
     public GameManager gameManager {get; private set;}
     public Paddle paddle {get; private set;}
     public SpriteRenderer sr {get; private set;}
+    public CircleCollider2D cc {get; private set;}
+    List<Vector3> positions; 
+
+    [Header("Powerup durations")]
+    public float longDuration;
+    public float shortDuration;
+    public float slowDuration;
+    public float fastDuration;
+    public float inverseDuration;
+    public float catchDuration;
+    public float rewindDuration;
+
+    [Header("Audio")]
+    public FMODUnity.EventReference lifeEvent;
+    public FMODUnity.EventReference longEvent;
+    public FMODUnity.EventReference shortEvent;
+
+    public FMOD.Studio.EventInstance lifeAudio;
+    public FMOD.Studio.EventInstance longAudio;
+    public FMOD.Studio.EventInstance shortAudio;
     
     private void Start() {
+        positions = new List<Vector3>();
         gameManager = FindObjectOfType<GameManager>();
         paddle = FindObjectOfType<Paddle>();
         sr = GetComponent<SpriteRenderer>();
+        cc = GetComponent<CircleCollider2D>();
         randomNum = Random.Range(0, powerUps.Length);
     }
 
     private void Update() {
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, -10, 0f), fallSpeed * Time.deltaTime);
+        if(!gameManager.rewindActive) {
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(transform.position.x, -11, 0f), fallSpeed * Time.deltaTime);
+        }
+
+        if(transform.position.y >= paddle.gameObject.transform.position.y) 
+        {
+            cc.enabled = true;
+        }
+        
+    }
+
+    private void FixedUpdate() {
+        if(gameManager.rewindActive) 
+        {
+            sr.enabled = true;
+            if(positions.Count > 0) {
+                transform.position = positions[0];
+                positions.RemoveAt(0);
+            }  else {
+                Destroy(this.gameObject);
+            }
+        } else {
+            cc.enabled = true;
+            positions.Insert(0, transform.position);
+        }
+
     }
 
     private void NewPowerUp(){
         randomNum = Random.Range(0, powerUps.Length);
         DoPowerUp();
+        
      }
 
     private void OnTriggerEnter2D(Collider2D other) {   
 
         if(other.gameObject.tag == "Paddle") 
         {
+            
             DoPowerUp();
         }
         if(other.gameObject.tag == "MissZone") {
-            Destroy(this.gameObject);
+            StartCoroutine(Break());
         }
     }
 
@@ -47,79 +96,155 @@ public class PowerUp : MonoBehaviour
        
         gameManager.score += points;
         sr.enabled = false;
+
+        //Life Powerup
         if(powerUps[randomNum] == "Life") 
         {
+            lifeAudio = FMODUnity.RuntimeManager.CreateInstance(lifeEvent);
+            lifeAudio.start();
             gameManager.AddLife();
-        } else if (powerUps[randomNum] == "Long") {
-            if(gameManager.actives[5]) 
+        } 
+        
+        //Long Powerup
+        else if (powerUps[randomNum] == "Long") {
+            if(gameManager.shortActive) 
             {
                 NewPowerUp();
                 return;
             }
-            gameManager.timers[0] = durations[0];
-            paddle.StopCoroutine("Long");
-            paddle.StartCoroutine("Long", durations[0]);
 
-        } else if (powerUps[randomNum] == "Multi") {
-            if(gameManager.ball.Length == 4) 
+            if(!gameManager.longActive) {
+                longAudio = FMODUnity.RuntimeManager.CreateInstance(longEvent);
+                longAudio.start();
+            }
+            
+
+            gameManager.longTimer = longDuration;
+            paddle.StopCoroutine("Long");
+            paddle.StartCoroutine("Long", longDuration);
+
+        } 
+        
+        //Multi Powerup
+        else if (powerUps[randomNum] == "Multi") {
+            if(gameManager.ball.Length >= 4) 
             {
                 NewPowerUp();
                 return;
             }
             gameManager.ball[0].Multi((multiBallCount + 1) - gameManager.ball.Length);
-        } else if(powerUps[randomNum] == "Slow") 
+        } 
+        
+        //Slow Powerup
+        else if(powerUps[randomNum] == "Slow") 
         {
-            if(gameManager.actives[2]) 
+            if(gameManager.fastActive) 
             {
                 NewPowerUp();
                 return;
             } 
-            gameManager.timers[1] = durations[1];
+            gameManager.slowTimer = slowDuration;
+
             for(int i = 0; i < gameManager.ball.Length; i++) 
             {
                 gameManager.ball[i].StopCoroutine("Slow");
-                gameManager.ball[i].StartCoroutine("Slow", durations[1]);
+                gameManager.ball[i].StartCoroutine("Slow", slowDuration);
             }
-        } else if(powerUps[randomNum] == "Fast") 
+        } 
+        
+        //Fast Powerup
+        else if(powerUps[randomNum] == "Fast") 
         {
-            if(gameManager.actives[1]) 
+            if(gameManager.slowActive) 
             {
                 NewPowerUp();
                 return;
             }
-            gameManager.timers[2] = durations[2];
+            gameManager.fastTimer = fastDuration;
+
             for(int i = 0; i < gameManager.ball.Length; i++) 
             {
                 gameManager.ball[i].StopCoroutine("Fast");              
-                gameManager.ball[i].StartCoroutine("Fast", durations[1]);
+                gameManager.ball[i].StartCoroutine("Fast", fastDuration);
             }
-        } else if (powerUps[randomNum] == "Inverse") {
-            gameManager.timers[3] = durations[3];
+        } 
+        
+        //Inverse Powerup
+        else if (powerUps[randomNum] == "Inverse") {
+            gameManager.inverseTimer = inverseDuration;
             paddle.StopCoroutine("Inverse");
-            paddle.StartCoroutine("Inverse", durations[3]);
-        } else if (powerUps[randomNum] == "Catch") {
-            gameManager.timers[4] = durations[4];
+            paddle.StartCoroutine("Inverse", inverseDuration);
+        } 
+        
+        //Catch Powerup
+        else if (powerUps[randomNum] == "Catch") {
+            
+            gameManager.catchTimer = catchDuration;
+
             for(int i = 0; i < gameManager.ball.Length; i++) 
             {
                 gameManager.ball[i].StopCoroutine("Catch");              
-                gameManager.ball[i].StartCoroutine("Catch", durations[4]);
+                gameManager.ball[i].StartCoroutine("Catch", catchDuration);
             }
-        } else if (powerUps[randomNum] == "Short") 
+        } 
+        
+        //Short Powerup
+        else if (powerUps[randomNum] == "Short") 
         {
-            if(gameManager.actives[0]) 
+            if(gameManager.longActive) 
             {
                 NewPowerUp();
                 return;
             }
-            gameManager.timers[5] = durations[5];
+
+            if(!gameManager.shortActive) {
+                shortAudio = FMODUnity.RuntimeManager.CreateInstance(shortEvent);
+                shortAudio.start();
+            }
+            gameManager.shortTimer = shortDuration;
             paddle.StopCoroutine("Short");
-            paddle.StartCoroutine("Short", durations[5]);
-        } else if (powerUps[randomNum] == "Lazer") {
+            paddle.StartCoroutine("Short", shortDuration);
+        } 
+        
+        //Lazer Powerup
+        else if (powerUps[randomNum] == "Lazer") {
             paddle.Lazer(lazerAmmo);
         }
-        Destroy(this.gameObject, 0.1f);
-        
+
+        //Rewind Powerup
+        else if(powerUps[randomNum] == "Rewind") 
+        {
+            if(gameManager.slowActive || gameManager.fastActive) 
+            {
+                NewPowerUp();
+                return;
+            }
+            gameManager.rewindTimer = rewindDuration;
+            
+            for(int i = 0; i < gameManager.ball.Length; i++) 
+            {
+                gameManager.ball[i].StopCoroutine("Rewind");              
+                gameManager.ball[i].StartCoroutine("Rewind", rewindDuration);
+            }
+            
+        }
+
+        Destroy(this.gameObject, 0.1f);      
+    }
+
+
+    IEnumerator Break() 
+    {
+        sr.enabled = false;
+        cc.enabled = true;
+          
+        yield return new WaitForSeconds(rewindDuration);
+        if(sr.enabled == false) {
+            Destroy(this.gameObject);
+        }  
     }
 }
+
+
 
    

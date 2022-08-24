@@ -143,6 +143,34 @@ MonoBehaviour:
   fastMultiplier: 2
   speed: 10
   multiBall: {fileID: 6843079612363832170, guid: c6469a42001e352479dcd25f233c8942, type: 3}
+  brickHitEvent:
+    Guid:
+      Data1: 1678527582
+      Data2: 1137235350
+      Data3: -608018545
+      Data4: 103268735
+    Path: event:/hit_brick
+  paddleHitEvent:
+    Guid:
+      Data1: 1949567467
+      Data2: 1331199924
+      Data3: 1337523871
+      Data4: -2142149470
+    Path: event:/hit_paddle
+  wallHitEvent:
+    Guid:
+      Data1: 1678527582
+      Data2: 1137235350
+      Data3: -608018545
+      Data4: 103268735
+    Path: event:/hit_brick
+  unbreakableHitEvent:
+    Guid:
+      Data1: 1342678229
+      Data2: 1095115583
+      Data3: 107495320
+      Data4: -1789785808
+    Path: event:/hit_unbreakable
 --- !u!96 &1671399967462106974
 TrailRenderer:
   serializedVersion: 2

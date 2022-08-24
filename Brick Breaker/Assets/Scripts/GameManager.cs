@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public int level = 1;
+    public int startLevel;
+
     public int totalLevels;
     public int score = 0;
     public int lives = 3;
@@ -26,12 +28,31 @@ public class GameManager : MonoBehaviour
     public KeyCode [] activeKey;
     public Scene activeScene {get; private set;}
 
+    [Header("Timers for Powerup")]
+    public float longTimer;
+    public float shortTimer;
+    public float slowTimer;
+    public float fastTimer;
+    public float inverseTimer;
+    public float catchTimer;
+    public float rewindTimer;
+
+    [Header("Bools for Powerup")]
+    public bool longActive = false;
+    public bool shortActive = false;
+    public bool slowActive = false;
+    public bool fastActive = false;
+    public bool inverseActive = false;
+    public bool catchActive = false;
+    public bool rewindActive = false;  
+
     private void Awake() 
     {
         DontDestroyOnLoad(this.gameObject);
     }
 
     private void Start() {
+        ResetAllTimers();
         BackToMenu();
         //SceneManager.LoadScene(activeScene.name);
         //NewGame();
@@ -48,7 +69,7 @@ public class GameManager : MonoBehaviour
         this.lives = 3;
         Time.timeScale = 1;
 
-        LoadLevel(1);
+        LoadLevel(startLevel);
     }
 
     private void Update() {
@@ -60,37 +81,24 @@ public class GameManager : MonoBehaviour
             
             scoreText.enabled = true; scoreText.text = score.ToString();
             livesText.enabled = true; livesText.text = lives.ToString();
-            if(Input.GetKeyDown(KeyCode.Space) && ball[0].canChangeSpeed) 
-            {
-                if (Time.timeScale == 1) 
-                {
-                    Time.timeScale = 2;
-                } else if (Time.timeScale == 2) {
-                    Time.timeScale = 5;
-                } else if (Time.timeScale >= 5) 
-                {
-                    Time.timeScale = 1;
-                }
-            }
+            //if(Input.GetKeyDown(KeyCode.Space) && ball[0].canChangeSpeed) 
+            //{
+                //if (Time.timeScale == 1) 
+                //{
+                    //Time.timeScale = 2;
+                //} else if (Time.timeScale == 2) {
+                    //Time.timeScale = 5;
+                //} else if (Time.timeScale >= 5) 
+                //{
+                    //Time.timeScale = 1;
+                //}
+            //}
 
-
-            for (int i = 0; i < timersTexts.Length; i++) 
-            {
-                if(timers[i] > 0) {
-                    timersTexts[i].gameObject.SetActive(true);
-                    if(Mathf.RoundToInt(timers[i]) >= 10) 
-                    {
-                        timersTexts[i].text = "0:" + Mathf.RoundToInt(timers[i]).ToString();
-                    } else if(Mathf.RoundToInt(timers[i]) < 10 && timers[i] > 0) {
-                        timersTexts[i].text = "0:0" + Mathf.RoundToInt(timers[i]).ToString();
-                    }
-                    
-                }
-                else {
-                    timersTexts[i].gameObject.SetActive(false);
-                }
-            }
+            UpdateTimersText();
+            
         }
+
+        UpdateTimers();
 
         for(int i = 0; i < timers.Length; i++) 
         {
@@ -102,6 +110,7 @@ public class GameManager : MonoBehaviour
     private void LoadLevel(int level) 
     {
         this.level = level;
+        ResetAllTimers();
         Time.timeScale = 1;
         if(totalLevels <= 4) 
         {
@@ -114,7 +123,9 @@ public class GameManager : MonoBehaviour
             timers[i] = 0;
             actives[i] = false;
         }
-        Invoke("FindObjects", 0.1f);
+        Invoke("FindObjects", 0.05f);
+
+        ResetAllTimers();
     }
 
     private void FindObjects() 
@@ -128,6 +139,7 @@ public class GameManager : MonoBehaviour
     }
     private void ResetLevel() 
     {
+        ResetAllTimers();
         Time.timeScale = 1;
         //ball[CheckForPlace()].ResetBall();
         ball[0].ResetBall();
@@ -174,7 +186,6 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if(Cleared()) 
         {
-            Debug.Log("Saw that its cleared");
             LoadLevel(this.level + 1);
         }
     }
@@ -182,13 +193,12 @@ public class GameManager : MonoBehaviour
     {
         for (int i = 0; i < this.bricks.Length; i++) 
         {
-            if(bricks[i].activeInHierarchy && !bricks[i].GetComponent<Brick>().unbreakable) 
+            Brick brick = bricks[i].GetComponent<Brick>();
+            if(brick.sr.enabled && !brick.unbreakable) 
             {
-                Debug.Log("Not Cleared");
                 return false;
             }
         }
-        Debug.Log("Cleared");
         return true; 
     }
 
@@ -245,5 +255,54 @@ public class GameManager : MonoBehaviour
     {
         lives++;
     }
-}
 
+    public void ResetAllTimers() 
+    {
+        longTimer = 0;
+        shortTimer = 0;
+        slowTimer = 0;
+        fastTimer = 0;
+        inverseTimer = 0;
+        catchTimer = 0;
+        rewindTimer = 0;
+    }
+
+    public void UpdateTimers() 
+    {
+        longTimer -= Time.deltaTime;
+        shortTimer -= Time.deltaTime;
+        slowTimer -= Time.deltaTime;
+        fastTimer -= Time.deltaTime;
+        inverseTimer -= Time.deltaTime;
+        catchTimer -= Time.deltaTime;
+        rewindTimer -= Time.deltaTime;
+
+        longTimer = timers[0];
+        shortTimer = timers[1];
+        slowTimer = timers[2];
+        fastTimer = timers[3];
+        inverseTimer = timers[4];
+        catchTimer = timers[5];
+        rewindTimer = timers[6];
+        
+    }
+
+    public void UpdateTimersText() {
+        for (int i = 0; i < timersTexts.Length; i++) 
+            {
+                if(timers[i] > 0) {
+                    timersTexts[i].gameObject.SetActive(true);
+                    if(Mathf.RoundToInt(timers[i]) >= 10) 
+                    {
+                        timersTexts[i].text = "0:" + Mathf.RoundToInt(timers[i]).ToString();
+                    } else if(Mathf.RoundToInt(timers[i]) < 10 && timers[i] > 0) {
+                        timersTexts[i].text = "0:0" + Mathf.RoundToInt(timers[i]).ToString();
+                    }
+                    
+                }
+                else {
+                    timersTexts[i].gameObject.SetActive(false);
+                }
+            }
+    }
+}

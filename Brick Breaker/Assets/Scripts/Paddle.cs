@@ -14,6 +14,9 @@ public class Paddle : MonoBehaviour
     public float maxBounceAngle = 75f;
     public bool occupied = false;
 
+    [Header("Powerup Stuff")]
+    List<Vector3> positions;
+
     [Header("Lazer/RayCast")]
     public LayerMask layer;
     public float lazerDuration;
@@ -28,9 +31,14 @@ public class Paddle : MonoBehaviour
     {
         layer = ~layer;
         this.rb = GetComponent<Rigidbody2D>();
-        gameManager = FindObjectOfType<GameManager>();
         bc = GetComponent<BoxCollider2D>();
         lr = GetComponent<LineRenderer>();
+    }
+
+    private void Start() 
+    {
+        positions = new List<Vector3>(); 
+        gameManager = FindObjectOfType<GameManager>();
     }
 
     public void ResetPaddle() 
@@ -41,10 +49,11 @@ public class Paddle : MonoBehaviour
         transform.position = new Vector2(0f, transform.position.y);
         transform.localScale = new Vector3(1f, 1f, 1f);
         rb.velocity = Vector2.zero;
+        positions = new List<Vector3>();
     }
 
     private void Update() {
-        if(!gameManager.actives[3]) 
+        if(!gameManager.inverseActive && !gameManager.rewindActive) 
         {
             if (Input.GetKey(gameManager.activeKey[0]))
             {
@@ -54,7 +63,7 @@ public class Paddle : MonoBehaviour
             } else {
                 this.direction = Vector2.zero;
             }
-        } else if(gameManager.actives[3]) {
+        } else if(gameManager.inverseActive) {
             if (Input.GetKey(gameManager.activeKey[1]))
             {
                 this.direction = Vector2.left;
@@ -93,8 +102,8 @@ public class Paddle : MonoBehaviour
                 lr.SetPosition(1, Vector3.up * 200f);
             }
         }
-        
     }
+
 
     IEnumerator ShootBool() 
     { 
@@ -108,6 +117,16 @@ public class Paddle : MonoBehaviour
     private void FixedUpdate() {
         if(this.direction != Vector2.zero) {
             this.rb.AddForce(this.direction * speed);
+        }
+
+        if(gameManager.rewindActive ) 
+        {
+            if(positions.Count > 0) {
+                transform.position = positions[0];
+                positions.RemoveAt(0);
+            }  
+        } else {
+            positions.Insert(0, transform.position);
         }
     }
 
@@ -133,40 +152,39 @@ public class Paddle : MonoBehaviour
 
     IEnumerator Long(int duration) 
     {
-        if(!gameManager.actives[0]) 
+        if(!gameManager.longActive) 
         {
-            gameManager.actives[0] = true;
+            gameManager.longActive = true;
             this.transform.localScale = new Vector3(transform.localScale.x * 1.5f, 1f, 1f);          
         }
 
         yield return new WaitForSeconds(duration); 
         this.transform.localScale = new Vector3(1f, 1f, 1f);
-        gameManager.actives[0] = false;
-    }
-
-    IEnumerator Inverse(int duration) 
-    {
-        if(!gameManager.actives[3]) 
-        {
-            gameManager.actives[3] = true;       
-        }
-        yield return new WaitForSeconds(duration);
-        gameManager.actives[3] = false;
+        gameManager.longActive = false;
     }
 
     IEnumerator Short(int duration) 
     {
-        if(!gameManager.actives[5]) 
+        if(!gameManager.shortActive) 
         {
-            gameManager.actives[5] = true;
+            gameManager.shortActive = true;
             this.transform.localScale = new Vector3(transform.localScale.x / 1.5f, 1f, 1f);          
         }
 
         yield return new WaitForSeconds(duration); 
         this.transform.localScale = new Vector3(1f, 1f, 1f);
-        gameManager.actives[5] = false;
+        gameManager.shortActive = false;
     }
 
+    IEnumerator Inverse(int duration) 
+    {
+        if(!gameManager.inverseActive) 
+        {
+            gameManager.inverseActive = true;       
+        }
+        yield return new WaitForSeconds(duration);
+        gameManager.inverseActive = false;
+    }
     public void Lazer(int ammo) 
     {
         this.lazerAmmo += ammo;      

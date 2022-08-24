@@ -252,6 +252,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/hit_unbreakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: 1342678229
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1095115583
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 107495320
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1789785808
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
 --- !u!1001 &120087248
@@ -781,6 +801,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/hit_unbreakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: 1342678229
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1095115583
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 107495320
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1789785808
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
 --- !u!4 &527605368 stripped
@@ -854,6 +894,26 @@ PrefabInstance:
     - target: {fileID: 6584166675735406147, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/hit_unbreakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: 1342678229
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1095115583
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 107495320
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1789785808
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
@@ -1809,6 +1869,30 @@ PrefabInstance:
     - target: {fileID: 6584166675735406147, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Path
+      value: event:/hit_unbreakable
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data1
+      value: 1342678229
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data2
+      value: 1095115583
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data3
+      value: 107495320
+      objectReference: {fileID: 0}
+    - target: {fileID: 8579599931614121090, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
+      propertyPath: EventReference.Guid.Data4
+      value: -1789785808
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4250a946b14def54fb2464ecf542c4e8, type: 3}
