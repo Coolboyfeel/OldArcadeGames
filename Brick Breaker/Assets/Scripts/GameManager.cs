@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public KeyCode [] activeKey;
     public Scene activeScene {get; private set;}
 
-    [Header("Timers for Powerup")]
+    [Header("Powerup Timers")]
     public float longTimer;
     public float shortTimer;
     public float slowTimer;
@@ -36,6 +36,15 @@ public class GameManager : MonoBehaviour
     public float inverseTimer;
     public float catchTimer;
     public float rewindTimer;
+
+    [Header("Powerups Durations")]
+    public float longDuration;
+    public float shortDuration;
+    public float slowDuration;
+    public float fastDuration;
+    public float inverseDuration;
+    public float catchDuration;
+    public float rewindDuration;
 
     [Header("Bools for Powerup")]
     public bool longActive = false;
@@ -52,7 +61,7 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        ResetAllTimers();
+        ResetAllPowerUps();
         BackToMenu();
         //SceneManager.LoadScene(activeScene.name);
         //NewGame();
@@ -98,19 +107,13 @@ public class GameManager : MonoBehaviour
             
         }
 
-        UpdateTimers();
-
-        for(int i = 0; i < timers.Length; i++) 
-        {
-            timers[i] -= Time.deltaTime;
-        }
-
+        UpdatePowerups();
     }
 
     private void LoadLevel(int level) 
     {
         this.level = level;
-        ResetAllTimers();
+        ResetAllPowerUps();
         Time.timeScale = 1;
         if(totalLevels <= 4) 
         {
@@ -118,14 +121,8 @@ public class GameManager : MonoBehaviour
         } else {
             SceneManager.LoadScene("Won");
         }
-        for(int i = 0; i < timers.Length; i++) 
-        {
-            timers[i] = 0;
-            actives[i] = false;
-        }
         Invoke("FindObjects", 0.05f);
 
-        ResetAllTimers();
     }
 
     private void FindObjects() 
@@ -139,7 +136,7 @@ public class GameManager : MonoBehaviour
     }
     private void ResetLevel() 
     {
-        ResetAllTimers();
+        ResetAllPowerUps();
         Time.timeScale = 1;
         //ball[CheckForPlace()].ResetBall();
         ball[0].ResetBall();
@@ -147,11 +144,6 @@ public class GameManager : MonoBehaviour
         for(int i = 0; i < powerUp.Length; i++) 
         {
             Destroy(powerUp[i].gameObject);
-        }
-        for(int i = 0; i < timers.Length; i++) 
-        {
-            timers[i] = 0;
-            actives[i] = false;
         }
     }
     private void GameOver() 
@@ -256,7 +248,7 @@ public class GameManager : MonoBehaviour
         lives++;
     }
 
-    public void ResetAllTimers() 
+    public void ResetAllPowerUps() 
     {
         longTimer = 0;
         shortTimer = 0;
@@ -265,26 +257,85 @@ public class GameManager : MonoBehaviour
         inverseTimer = 0;
         catchTimer = 0;
         rewindTimer = 0;
+
+        longActive = false;
+        shortActive = false;
+        slowActive = false;
+        fastActive = false;
+        inverseActive = false;
+        catchActive = false;
+        rewindActive = false;
     }
 
-    public void UpdateTimers() 
+    public void UpdatePowerups() 
     {
-        longTimer -= Time.deltaTime;
-        shortTimer -= Time.deltaTime;
-        slowTimer -= Time.deltaTime;
-        fastTimer -= Time.deltaTime;
-        inverseTimer -= Time.deltaTime;
-        catchTimer -= Time.deltaTime;
+        if(!rewindActive) {
+            longTimer -= Time.deltaTime;
+            shortTimer -= Time.deltaTime;
+            slowTimer -= Time.deltaTime;
+            fastTimer -= Time.deltaTime;
+            inverseTimer -= Time.deltaTime;
+            catchTimer -= Time.deltaTime;
+        }  else {
+            longTimer += Time.deltaTime;
+            shortTimer += Time.deltaTime;
+            slowTimer += Time.deltaTime;
+            fastTimer += Time.deltaTime;
+            inverseTimer += Time.deltaTime;
+            catchTimer += Time.deltaTime;       
+        }
+
         rewindTimer -= Time.deltaTime;
 
-        longTimer = timers[0];
-        shortTimer = timers[1];
-        slowTimer = timers[2];
-        fastTimer = timers[3];
-        inverseTimer = timers[4];
-        catchTimer = timers[5];
-        rewindTimer = timers[6];
-        
+        if(longTimer < longDuration && longTimer > 0) {
+            longActive = true;
+        } else if(longTimer > longDuration) { longTimer = 0; longActive = false;}
+        else {longActive = false;}
+
+        if(shortTimer < shortDuration && shortTimer > 0) {
+            shortActive = true;
+        } else if(shortTimer > shortDuration) {shortTimer = 0; shortActive = false;}
+        else {shortActive = false;} 
+
+        if(slowTimer < slowDuration && slowTimer > 0) {
+            slowActive = true;
+        } else if(slowTimer > slowDuration) {slowTimer = 0; shortActive = false;}
+        else {slowActive = false;}
+
+        if(fastTimer < fastDuration && fastTimer > 0) {
+            fastActive = true;
+        } else if(fastTimer > fastDuration) {fastTimer = 0; fastActive = false;}
+        else {fastActive = false;}
+
+        if(inverseTimer < inverseDuration && inverseTimer > 0) {
+            inverseActive = true;
+        } else if(inverseTimer < inverseDuration) {inverseTimer = 0; inverseActive = false;} 
+        else {inverseActive = false;}
+
+        if(catchTimer < catchDuration && catchTimer > 0) {
+            catchActive = true;
+        } else if(catchTimer > catchDuration) {catchTimer = 0; catchActive = false;}
+        else { catchActive = false;}
+
+        if(rewindTimer < rewindDuration && rewindTimer > 0) {
+            rewindActive = true;
+        } else { rewindActive = false;}
+ 
+        timers[0] = longTimer;
+        timers[1] = shortTimer;
+        timers[2] = slowTimer;
+        timers[3] = fastTimer;
+        timers[4] = inverseTimer;
+        timers[5] = catchTimer;
+        timers[6] = rewindTimer;
+
+        actives[0] = longActive;
+        actives[1] = shortActive;
+        actives[2] = slowActive;
+        actives[3] = fastActive;
+        actives[4] = inverseActive;
+        actives[5] = catchActive;
+        actives[6] = rewindActive;       
     }
 
     public void UpdateTimersText() {

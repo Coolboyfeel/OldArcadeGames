@@ -31,9 +31,7 @@ public class PowerUp : MonoBehaviour
     public FMODUnity.EventReference longEvent;
     public FMODUnity.EventReference shortEvent;
 
-    public FMOD.Studio.EventInstance lifeAudio;
-    public FMOD.Studio.EventInstance longAudio;
-    public FMOD.Studio.EventInstance shortAudio;
+    public FMOD.Studio.EventInstance audio;
     
     private void Start() {
         positions = new List<Vector3>();
@@ -100,8 +98,8 @@ public class PowerUp : MonoBehaviour
         //Life Powerup
         if(powerUps[randomNum] == "Life") 
         {
-            lifeAudio = FMODUnity.RuntimeManager.CreateInstance(lifeEvent);
-            lifeAudio.start();
+            audio = FMODUnity.RuntimeManager.CreateInstance(lifeEvent);
+            audio.start();
             gameManager.AddLife();
         } 
         
@@ -114,15 +112,12 @@ public class PowerUp : MonoBehaviour
             }
 
             if(!gameManager.longActive) {
-                longAudio = FMODUnity.RuntimeManager.CreateInstance(longEvent);
-                longAudio.start();
+                audio = FMODUnity.RuntimeManager.CreateInstance(longEvent);
+                audio.start();
             }
             
 
             gameManager.longTimer = longDuration;
-            paddle.StopCoroutine("Long");
-            paddle.StartCoroutine("Long", longDuration);
-
         } 
         
         //Multi Powerup
@@ -198,12 +193,10 @@ public class PowerUp : MonoBehaviour
             }
 
             if(!gameManager.shortActive) {
-                shortAudio = FMODUnity.RuntimeManager.CreateInstance(shortEvent);
-                shortAudio.start();
+                audio = FMODUnity.RuntimeManager.CreateInstance(shortEvent);
+                audio.start();
             }
             gameManager.shortTimer = shortDuration;
-            paddle.StopCoroutine("Short");
-            paddle.StartCoroutine("Short", shortDuration);
         } 
         
         //Lazer Powerup

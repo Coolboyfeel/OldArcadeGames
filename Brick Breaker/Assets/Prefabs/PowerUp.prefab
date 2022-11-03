@@ -135,8 +135,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   powerUps:
+  - Long
   - Rewind
-  - Multi
   durations:
   - 10
   - 5

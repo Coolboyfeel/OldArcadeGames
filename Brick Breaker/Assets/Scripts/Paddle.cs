@@ -102,6 +102,8 @@ public class Paddle : MonoBehaviour
                 lr.SetPosition(1, Vector3.up * 200f);
             }
         }
+
+        PowerUps();
     }
 
 
@@ -150,41 +152,18 @@ public class Paddle : MonoBehaviour
         }
     }
 
-    IEnumerator Long(int duration) 
-    {
-        if(!gameManager.longActive) 
+    public void PowerUps() {
+        if(gameManager.longActive) 
         {
-            gameManager.longActive = true;
-            this.transform.localScale = new Vector3(transform.localScale.x * 1.5f, 1f, 1f);          
+            this.transform.localScale = new Vector3(1.5f, 1f, 1f);          
+        } else if (gameManager.shortActive) {
+            this.transform.localScale = new Vector3(0.65f, 1f, 1f);
+        } else {
+            this.transform.localScale = new Vector3(1f, 1f, 1f);
         }
 
-        yield return new WaitForSeconds(duration); 
-        this.transform.localScale = new Vector3(1f, 1f, 1f);
-        gameManager.longActive = false;
     }
 
-    IEnumerator Short(int duration) 
-    {
-        if(!gameManager.shortActive) 
-        {
-            gameManager.shortActive = true;
-            this.transform.localScale = new Vector3(transform.localScale.x / 1.5f, 1f, 1f);          
-        }
-
-        yield return new WaitForSeconds(duration); 
-        this.transform.localScale = new Vector3(1f, 1f, 1f);
-        gameManager.shortActive = false;
-    }
-
-    IEnumerator Inverse(int duration) 
-    {
-        if(!gameManager.inverseActive) 
-        {
-            gameManager.inverseActive = true;       
-        }
-        yield return new WaitForSeconds(duration);
-        gameManager.inverseActive = false;
-    }
     public void Lazer(int ammo) 
     {
         this.lazerAmmo += ammo;      

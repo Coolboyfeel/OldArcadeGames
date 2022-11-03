@@ -179,6 +179,13 @@ MonoBehaviour:
   inverseTimer: 0
   catchTimer: 0
   rewindTimer: 0
+  longDuration: 10
+  shortDuration: 10
+  slowDuration: 5
+  fastDuration: 5
+  inverseDuration: 5
+  catchDuration: 10
+  rewindDuration: 5
   longActive: 0
   shortActive: 0
   slowActive: 0
